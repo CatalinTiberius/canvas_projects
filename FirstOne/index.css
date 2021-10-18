@@ -1,0 +1,69 @@
+#myCanvas {
+    position: absolute;
+    background: whitesmoke;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#menu-screen {
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+
+.menu {
+    width: 35%;
+    background-color: rgb(105, 105, 105);
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    color: blanchedalmond;
+    
+}
+
+.menu-item {
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    text-align: center;
+    font-size: 1.3em;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    background-color: rgb(105, 105, 105);
+    transition: width;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-item:hover {
+    cursor: pointer;
+    transform: scaleX(1.1);
+}
+
+.menu-title {
+    border-color: black;
+    border-style: double;
+    border-width: 1px;
+    text-align: center;
+    font-size: 2em;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    background-color: rgb(87, 87, 87);
+
+}
