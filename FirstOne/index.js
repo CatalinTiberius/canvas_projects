@@ -125,11 +125,14 @@ function init(nrCircles, colorArray) {
 
 }
 
-function animate() {
+function animate(timestamp) {
+    let deltaTime = timestamp - lastTime;
+    lastTime = timestamp;
+    console.log(deltaTime);
     requestAnimationFrame(animate);
     ctx.clearRect(0, 0, innerWidth, innerHeight);
     for(let i = 0; i < circleArray.length; i++)
-        circleArray[i].update();
+        circleArray[i].update(deltaTime);
     
 }
 
@@ -202,5 +205,6 @@ else
     init(nrCircles, colorArray);
 }
 
+var lastTime = 0;
 animate();
 

@@ -17,9 +17,9 @@ class Circle {
         this.moved = undefined;
     }
 
-    update(){
+    update(deltaTime){
 
-        
+    if(!deltaTime)  return;
         //Move away from mouse
 
     if(!paused)
@@ -63,8 +63,8 @@ class Circle {
         if(this.y + this.radius > innerHeight || this.y - this.radius < 0)
             this.dy = -this.dy;
         
-        this.x += this.dx;
-        this.y += this.dy;
+        this.x += this.dx / deltaTime;
+        this.y += this.dy / deltaTime;
         }
         this.draw();
     }
