@@ -19,7 +19,6 @@ class Circle {
 
     update(deltaTime){
 
-    if(!deltaTime)  return;
         //Move away from mouse
 
     if(!paused)
@@ -36,8 +35,8 @@ class Circle {
                         this.mdy = this.dy;
                     }, 500)
                 }
-            this.accX = a/100;
-            this.accY = b/100;
+            this.accX = a/5;
+            this.accY = b/5;
             this.dx += this.accX;
             this.dy += this.accY;
             //console.log(`Aproape dx:${this.dx} dy:${this.dy}`);

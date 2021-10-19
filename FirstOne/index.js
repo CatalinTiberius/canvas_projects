@@ -115,8 +115,8 @@ function init(nrCircles, colorArray) {
             let radius = Math.floor((Math.random()+0.3) * 15);
             let x = Math.random() * (innerWidth - radius * 2) + radius;
             let y = Math.random() * (innerHeight- radius * 2) + radius ;
-            let dx = (Math.random() - 0.5) * 1.5;
-            let dy = (Math.random() - 0.5) * 1.5;
+            let dx = (Math.random() - 0.5) * 100;
+            let dy = (Math.random() - 0.5) * 100;
             let color = colorArray[Math.floor(Math.random()*(colorArray.length-1)) + 1];
             let circle = new Circle(x,y,radius,dx,dy,color);
             circleArray.push(circle);
@@ -126,14 +126,27 @@ function init(nrCircles, colorArray) {
 
 }
 
+const deltaTime = 1/60;
+let accumulatedTime = 0;
+let lastTime = 0;
+
 function animate(timestamp) {
-    let deltaTime = (timestamp - lastTime) / 10;
-    //console.log(deltaTime);
+
     ctx.clearRect(0, 0, innerWidth, innerHeight);
-    for(let i = 0; i < circleArray.length; i++)
-        circleArray[i].update(deltaTime);
+
+    accumulatedTime += ((timestamp - lastTime) / 1000);
     
-    requestAnimationFrame(animate);
+    while(accumulatedTime > deltaTime){
+        for(let i = 0; i < circleArray.length; i++)
+            {
+                circleArray[i].update(deltaTime);
+            }
+        
+            accumulatedTime -= deltaTime;
+    }
+    
+    //requestAnimationFrame(animate);
+    setTimeout(animate, 1000/60, performance.now());
 
     lastTime = timestamp;
 }
@@ -207,6 +220,5 @@ else
     init(nrCircles, colorArray);
 }
 
-var lastTime = 0;
-animate();
+animate(0);
 
