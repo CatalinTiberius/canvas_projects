@@ -15,7 +15,8 @@ var colorPresets = {
     'preset7': ['#0D0D0D', '#072602', '#0C40040', '#3AA629', '#4AD923'],
     'preset8': ['#0D0D0D', '#BF110C', '#7F0B08', '#FF1610', '#400604', '#E5140E'],
 }
-var colorArray = colorPresets['preset8'];
+
+var colorArray = colorPresets['preset' + (Math.floor(Math.random()*Object.keys(colorPresets).length) + 1)];
 
 var mouse = {
     x: undefined,
@@ -126,14 +127,15 @@ function init(nrCircles, colorArray) {
 }
 
 function animate(timestamp) {
-    let deltaTime = timestamp - lastTime;
-    lastTime = timestamp;
-    console.log(deltaTime);
-    requestAnimationFrame(animate);
+    let deltaTime = (timestamp - lastTime) / 10;
+    //console.log(deltaTime);
     ctx.clearRect(0, 0, innerWidth, innerHeight);
     for(let i = 0; i < circleArray.length; i++)
         circleArray[i].update(deltaTime);
     
+    requestAnimationFrame(animate);
+
+    lastTime = timestamp;
 }
 
 
