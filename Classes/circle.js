@@ -1,5 +1,7 @@
 class Circle {
-    constructor(x,y,radius,dx,dy,color){
+    constructor(canvas,x,y,radius,dx,dy,color){
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -56,10 +58,10 @@ class Circle {
 
 
         //Bounce off of edges
-        if(this.x + this.radius > innerWidth || this.x - this.radius < 0)
+        if(this.x + this.radius > this.canvas.width || this.x - this.radius < 0)
             this.dx = -this.dx;
 
-        if(this.y + this.radius > innerHeight || this.y - this.radius < 0)
+        if(this.y + this.radius > this.canvas.height || this.y - this.radius < 0)
             this.dy = -this.dy;
         
         this.x += this.dx * deltaTime;
@@ -69,9 +71,9 @@ class Circle {
     }
 
     draw(){
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        ctx.fillStyle = this.color;
-        ctx.fill();
+        this.ctx.beginPath();
+        this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        this.ctx.fillStyle = this.color;
+        this.ctx.fill();
     }
 }
