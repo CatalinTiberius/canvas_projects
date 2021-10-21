@@ -12,6 +12,27 @@ var mouse = {
 
 var paused = false;
 
+//  Menu notification
+
+var notif = document.getElementById('menu-notif');
+if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+    notif.appendChild(document.createTextNode("Tap with 3 fingers for MENU"));
+  }else{
+    notif.appendChild(document.createTextNode("Press M for MENU"));
+  }
+
+  notif.style.visibility = 'visible';
+  setTimeout(() => {
+      notif.style.visibility = 'hidden';
+  }, 5000);
+  setInterval(() => {
+      if(!chosenProject.paused)
+        notif.style.visibility = 'visible';
+    setTimeout(() => {
+        notif.style.visibility = 'hidden';
+    }, 5000);
+  }, 60000)
+
 //  create Menu
 
 var menuScreen = document.getElementById('menu-screen');

@@ -67,3 +67,14 @@
     background-color: rgb(87, 87, 87);
 
 }
+
+#menu-notif {
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+    visibility: visible;
+    font-size: 1.3em;
+    z-index: 1000;
+    background-color: rgb(255, 181, 43);
+    color:rgb(105, 105, 105);
+}
