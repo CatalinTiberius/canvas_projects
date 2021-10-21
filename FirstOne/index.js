@@ -64,8 +64,8 @@ for(var preset in chosenProject.colorPresets)
     let text = document.createTextNode(preset);
     menuItem.appendChild(text);
     menuItem.addEventListener('click', () => {
-        circleArray = [];
-        init(nrCircles, colors);
+
+        chosenProject.changeColors(colors);
     })
     menuItem.classList.add("menu-item");
 
@@ -96,16 +96,39 @@ addEventListener('resize', () => {
     canvas.width = innerWidth;
     canvas.height = innerHeight;
     let culori = chosenProject.colorArray;
-    chosenProject = new CircleProj(canvas);
-    chosenProject.colorArray = culori;
-    chosenProject.init();
-    
+    let circles = chosenProject.checkWindowSize(canvas);
+    chosenProject.init(circles);    
 })
 
 addEventListener('mousemove', (ev) => {
     mouse.x = ev.clientX;
     mouse.y = ev.clientY;
     //console.log(mouse);
+})
+addEventListener('touchmove', (ev) => {
+    ev.preventDefault();
+    mouse.x = ev.touches[0].clientX;
+    mouse.y = ev.touches[0].clientY;
+})
+
+addEventListener('touchstart', (ev) => {
+    ev.preventDefault();
+    if(ev.touches.length == 3){
+        if(menuScreen.style.visibility == 'visible')
+            {
+                menusArray.forEach(element => {
+                    element.style.visibility = "hidden";
+                });
+                menuScreen.style.visibility = 'hidden';
+                chosenProject.paused = false;
+            }
+        else
+            {
+                menuMain.style.visibility = "visible";
+                menuScreen.style.visibility = 'visible';
+                chosenProject.paused = true;
+            }
+    }
 })
 
 addEventListener('keypress', (ev) => {
@@ -117,25 +140,33 @@ addEventListener('keypress', (ev) => {
                     element.style.visibility = "hidden";
                 });
                 menuScreen.style.visibility = 'hidden';
-                paused = false;
+                chosenProject.paused = false;
             }
         else
             {
                 menuMain.style.visibility = "visible";
                 menuScreen.style.visibility = 'visible';
-                paused = true;
+                chosenProject.paused = true;
             }
 
     }
 })
 
+addEventListener('visibilitychange', function (event) {
+    if (!document.hidden) {
+        timer.wasPaused = true;
+    }
+});
+
 //      Initialize
 
-chosenProject.init();
+let circles = chosenProject.checkWindowSize(canvas);
+chosenProject.init(circles);
 
-const timer = new Timer(1/60);
+var timer = new Timer(1/60);
 timer.update = function update(deltaTime) {
-    chosenProject.update(deltaTime);
+    if(!chosenProject.paused)
+        chosenProject.update(deltaTime);
 }
 
 timer.start();

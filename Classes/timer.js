@@ -1,27 +1,30 @@
 class Timer {
     constructor(deltaTime = 1/60) {
-        let accumulatedTime = 0;
-        let lastTime = 0;
+        this.accumulatedTime = 0;
+        this.lastTime = 0;
+        this.wasPaused = false;
 
         this.updateProxy = (time) => {
-            accumulatedTime += (time - lastTime) / 1000;
+            if(this.wasPaused == true)  {this.lastTime = time - 0.001; this.wasPaused = false;}
+            this.accumulatedTime += (time - this.lastTime) / 1000;
 
-            while (accumulatedTime > deltaTime) {
+            while (this.accumulatedTime > deltaTime) {
                 this.update(deltaTime);
-                accumulatedTime -= deltaTime;
+                this.accumulatedTime -= deltaTime;
             }
 
-            lastTime = time;
-
+            this.lastTime = time;
             this.enqueue();
         }
+        
     }
 
     enqueue() {
-        requestAnimationFrame(this.updateProxy);
+            requestAnimationFrame(this.updateProxy);
     }
 
     start() {
         this.enqueue();
     }
+
 }

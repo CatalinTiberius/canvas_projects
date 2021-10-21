@@ -23,8 +23,6 @@ class Circle {
 
         //Move away from mouse
 
-    if(!paused)
-    {
         var a = this.x - mouse.x;
         var b = this.y - mouse.y;
         var distance = Math.sqrt(a*a + b*b);
@@ -37,10 +35,10 @@ class Circle {
                         this.mdy = this.dy;
                     }, 500)
                 }
-            this.accX = a/5;
-            this.accY = b/5;
-            this.dx += this.accX;
-            this.dy += this.accY;
+            this.accX = a * 50;
+            this.accY = b * 50;
+            this.dx += this.accX*deltaTime;
+            this.dy += this.accY*deltaTime;
             //console.log(`Aproape dx:${this.dx} dy:${this.dy}`);
         }
         else{
@@ -59,14 +57,39 @@ class Circle {
 
         //Bounce off of edges
         if(this.x + this.radius > this.canvas.width || this.x - this.radius < 0)
-            this.dx = -this.dx;
+            {
+                this.dx = -this.dx;
+            }
 
         if(this.y + this.radius > this.canvas.height || this.y - this.radius < 0)
-            this.dy = -this.dy;
+            {
+                this.dy = -this.dy;
+            }
+
+        //  Outside
+        if(this.x + this.radius > this.canvas.width + 10){
+                this.x = this.canvas.width - (5 + this.radius);
+                this.draw();
+            }
+
+        if(this.x - this.radius < -10){
+            this.x = 5 + this.radius;
+            this.draw();
+        }
+
+        if(this.y + this.radius > this.canvas.height + 10 )
+            {
+                this.y = this.canvas.height - (5 + this.radius);
+                this.draw();
+            }
         
+        if(this.y - this.radius < -10){
+            this.y = 5 + this.radius;
+            this.draw();
+        }
+
         this.x += this.dx * deltaTime;
         this.y += this.dy * deltaTime;
-        }
         this.draw();
     }
 

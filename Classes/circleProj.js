@@ -12,7 +12,7 @@ class CircleProj{
 
     //  Random preset
     colorArray = this.colorPresets['preset' + (Math.floor(Math.random()*Object.keys(this.colorPresets).length) + 1)];
-    nrCircles;
+    nrCircles = 0;
 
 
     constructor(canvas){
@@ -25,15 +25,12 @@ class CircleProj{
 
     }
 
-    init(){
-        if(window.innerWidth > 1250)    this.nrCircles = 650;
-        else if(window.innerWidth > 768 && window.innerWidth < 1250)    this.nrCircles = 350;
-        else this.nrCircles = 250;
-
+    init(nrCircles){
         this.canvas.style.background = this.colorArray[0];
 
-        if(this.nrCircles != this.circleArray.length) {
+        if(nrCircles != this.circleArray.length) {
             this.circleArray = [];
+            this.nrCircles = nrCircles;
             for (let i = 0; i<this.nrCircles; i++) {
                 let radius = Math.floor((Math.random()+0.3) * 15);
                 let x = Math.random() * (this.width - radius * 2) + radius;
@@ -49,10 +46,49 @@ class CircleProj{
     }
 
     update(deltaTime){
+        if(!this.paused){
+            this.ctx.clearRect(0, 0, this.width, this.height);
+            for(let i = 0; i < this.circleArray.length; i++)
+                {
+                    this.circleArray[i].update(deltaTime);
+                }
+        }
+    }
+
+    changeColors(colors){
+        this.colorArray = colors;
         this.ctx.clearRect(0, 0, this.width, this.height);
-        for(let i = 0; i < this.circleArray.length; i++)
-            {
-                this.circleArray[i].update(deltaTime);
-            }
+        this.canvas.style.background = colors[0];
+        for (let i = 0; i<this.nrCircles; i++) {
+            this.circleArray[i].color = colors[Math.floor(Math.random()*(colors.length-1)) + 1];
+            this.circleArray[i].draw();
+        }
+    }
+
+    checkWindowSize(canvas){
+        if(canvas.width > 1250)   { 
+            this.canvas = canvas;
+            this.ctx = canvas.getContext('2d');
+            this.changeSize(canvas);
+            return 650;
+        }
+        else if(canvas.width > 768 && canvas.width < 1250){
+            this.canvas = canvas;
+            this.ctx = canvas.getContext('2d');
+            this.changeSize(canvas);
+            return 350;
+        }
+        else{
+            this.canvas = canvas;
+            this.ctx = canvas.getContext('2d');
+            this.changeSize(canvas);
+            return 250;
+        }
+
+    }
+
+    changeSize(canvas){
+        this.width = canvas.width;
+        this.height = canvas.height;
     }
 }
