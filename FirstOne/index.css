@@ -70,8 +70,6 @@
 
 #menu-notif {
     position: absolute;
-    left:50%;
-    transform: translateX(-50%);
     visibility: visible;
     font-size: 1.3em;
     z-index: 1000;
