@@ -1,5 +1,17 @@
-//  Variables
+/*  
+                =================Canvas Project==================
 
+        This is my first project using canvas. I'm going to use it for trying the
+    ideas that come to my mind regarding graphics in a browser.
+
+
+        TO DO:
+        -create a class to handle menu creation
+        -create a class for the event listeners
+        -add the option to change circles` properties from the menu with some sliders
+*/
+
+//  Variables
 var canvas = document.querySelector('canvas');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
